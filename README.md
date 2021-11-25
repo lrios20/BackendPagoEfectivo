@@ -1,0 +1,2 @@
+# PagoEfectivo
+ dotnet run
