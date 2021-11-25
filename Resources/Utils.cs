@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PagoEfectivoApi.Resources
 {
@@ -19,6 +20,13 @@ namespace PagoEfectivoApi.Resources
             var seed = int.Parse(justNumbers.Substring(0, 7));
 
             return seed;
+        }
+          public static bool IsValidMail(string mail)
+        {
+            return Regex.IsMatch((mail ?? "").Trim(),
+                @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                RegexOptions.IgnoreCase);
         }
     }
 }

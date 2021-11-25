@@ -21,13 +21,15 @@ namespace PagoEfectivoApi.Bl
         {
             try
             {
-                var codePromotion = await _dbContext.codePromotions.SingleOrDefaultAsync(x => x.mail == obj.mail);
+                var codePromotion = await _dbContext.codePromotions.SingleOrDefaultAsync(x => x.mail == obj.mail.Trim());
 
                 if (codePromotion != null) throw new Exception($"Ya se genero un codigo con el email ingresado.");
+                if(!Utils.IsValidMail(obj.mail)) throw new Exception($"El email ingresado es incorrecto.");
+                
                 var entidad = obj.MapTo<codePromotion>();
                 entidad.insertDate = DateTime.Now;
                 entidad.statusId = (int)StatusCodePromotion.Generated;
-                entidad.code = $"{Constants.SiglaPg}{Utils.GetLetters(obj.mail)}{Utils.GenerateRandoNumbers()}";
+                entidad.code = $"{Constants.SiglaPg}{Utils.GetLetters(obj.mail.ToUpper())}{Utils.GenerateRandoNumbers()}";
 
                 _dbContext.codePromotions.Add(entidad);
                 await _dbContext.SaveChangesAsync();
@@ -56,7 +58,7 @@ namespace PagoEfectivoApi.Bl
         {
             try
             {
-                var codePromotion = await _dbContext.codePromotions.SingleOrDefaultAsync(x => x.code == obj.code);
+                var codePromotion = await _dbContext.codePromotions.SingleOrDefaultAsync(x => x.code == obj.code.Trim());
 
                 if (codePromotion == null) throw new Exception($"El codigo {obj.code} no existe.");
                 if (codePromotion.statusId == (int)StatusCodePromotion.Redeemed) throw new Exception($"El codigo ya fue canjeado.");
