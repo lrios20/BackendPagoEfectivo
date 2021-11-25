@@ -6,3 +6,6 @@
 
  Utilizar el comando `dotnet ef migrations add MyBaseMigration 
   --context DbPagoEfectivoContext`
+  
+  ## Verificar conexion en la clase DbPagoEfectivoContext 
+  En el metodo `pptionsBuilder.UseSqlServer` tiene que ser la misma conexion que esta en el appsetiing.json.
