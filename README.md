@@ -1,3 +1,3 @@
 # PagoEfectivo
- Pasos para compilar el proyecto.
+ # # Pasos para compilar el proyecto.
  *dotnet run
