@@ -11,7 +11,7 @@ using PagoEfectivoApi.Requests;
 namespace PagoEfectivoApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CodePromotionController : ControllerBase
     {
         private readonly ILogger<CodePromotionController> _logger;
